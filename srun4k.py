@@ -1,12 +1,16 @@
 import password
 import requests
+from requests.packages import urllib3
+
+# 关闭SSL验证警告
+urllib3.disable_warnings()
 
 class pySrun4kError(Exception):
 	def __init__(self,reason):
 		Exception.__init__(self)
 		self.reason = reason
 
-def do_login(username,pwd,mbytes=0,minutes=0):
+def do_login(url,username,pwd,mbytes=0,minutes=0):
 	pwd = password.encrypt(pwd)
 	payload = {
 		'action':'login',
@@ -23,7 +27,7 @@ def do_login(username,pwd,mbytes=0,minutes=0):
 	header = {
 		'user-agent':'pySrun4k'
 	}
-	r = requests.post("http://10.0.0.55/cgi-bin/srun_portal",data=payload,headers=header)
+	r = requests.post(url + "/cgi-bin/srun_portal",data=payload,headers=header,verify=False)
 	if ('login_error' in r.text):
 		ret = {
 			'success':False,
@@ -40,11 +44,12 @@ def do_login(username,pwd,mbytes=0,minutes=0):
 	else:
 		raise pySrun4kError(r.text)
 
-def check_online():
+
+def check_online(url):
 	header = {
 		'user-agent':'pySrun4k'
 	}
-	r = requests.get("http://10.0.0.55/cgi-bin/rad_user_info",headers=header)
+	r = requests.get(url + "/cgi-bin/rad_user_info", headers=header, verify=False)
 	if ('not_online' in r.text):
 		ret = {
 			'online':False
@@ -65,7 +70,8 @@ def check_online():
 		}
 		return ret
 
-def do_logout(username):
+
+def do_logout(url,username):
 	header = {
 		'user-agent':'pySrun4k'
 	}
@@ -75,7 +81,8 @@ def do_logout(username):
 		'username':username, #这参数好像没啥用,不过好像不传又不行.
 		'type':2
 	}
-	r = requests.post('http://10.0.0.55/cgi-bin/srun_portal',data=payload,headers=header)
+	r = requests.post(url + "/cgi-bin/cgi-bin/srun_portal",
+	                  data=payload, headers=header, verify=False)
 	if ('logout_ok' in r.text):
 		ret = {
 			'success':True,
@@ -90,7 +97,8 @@ def do_logout(username):
 	else:
 		raise pySrun4kError(r.text)
 
-def force_logout(username,pwd):
+
+def force_logout(url,username, pwd):
 	payload = {
 		'action':'logout',
 		'username':username,
@@ -103,7 +111,8 @@ def force_logout(username,pwd):
 	header = {
 		'user-agent':'pySrun4k'
 	}
-	r = requests.post('http://10.0.0.55/cgi-bin/srun_portal',data=payload,headers=header)
+	r = requests.post(url + "/cgi-bin/cgi-bin/srun_portal",
+	                  data=payload, headers=header, verify=False)
 	if ('logout_ok' in r.text):
 		ret = {
 			'success':True
