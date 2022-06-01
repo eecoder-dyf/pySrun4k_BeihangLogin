@@ -4,11 +4,20 @@ pySrun4k是一个模仿Srun4k认证客户端协议，用Python3实现的认证�
 
 实现了登录，检查在线状态，登出当前终端，登出所有终端功能。
 
+## Docker版-自动监控保持在线
+```
+cd docker/
+. env.sh user password
+build #only once
+start
+```
+后续可以改main_login_regular.py 根据check_online返回的ip地址实现ip更新git
+
 ## 依赖
 
-request
+requests
 
-```pip install request```
+```pip install requests```
 
 ## API
 
