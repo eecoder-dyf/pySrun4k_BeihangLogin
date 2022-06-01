@@ -8,9 +8,10 @@ pwd = os.environ['pwd']
 
 while True:
     ret = check_online(gatewayUrl)
-    print(ret)
+    # print(ret)
     #ret['online']  ret['ip']
     if not ret['online']:
+        print(ret)
         retlogin = do_login(gatewayUrl, user, pwd)
         print("try login:")
         print(retlogin)
