@@ -13,6 +13,10 @@ start
 ```
 后续可以改main_login_regular.py 根据check_online返回的ip地址实现ip更新git
 
+## 原版
+```python
+python main_login_regular.py
+```
 ## 依赖
 
 requests
