@@ -1,5 +1,6 @@
 from srun4k import *
 import sys
+import getpass
 
 gatewayUrl = "https://gw.buaa.edu.cn"
 
@@ -14,10 +15,11 @@ def main():
     option = sys.argv[1]
     if option == "login":
         if len(sys.argv) < 4:
-            usageHelper()
-            return
-        username = sys.argv[2]
-        password = sys.argv[3]
+            username = input('Username:')
+            password = getpass.getpass('Password:')
+        else:
+            username = sys.argv[2]
+            password = sys.argv[3]
         ret = do_login(gatewayUrl, username, password)
         if ret['success']:
             print('成功！')
