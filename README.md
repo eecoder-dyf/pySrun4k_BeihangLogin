@@ -50,7 +50,7 @@ requests
 
 
 ## Docker版-自动监控保持在线
-```
+```bash
 cd docker/
 . env.sh user password
 build #only once
@@ -59,6 +59,7 @@ start
 后续可以改main_login_regular.py 根据check_online返回的ip地址实现ip更新git
 
 ## 原版
+首先打开`main_login_regular.py`修改用户名和密码
 ```python
-python main_login_regular.py
+python main_login_regular.py # 适用于长期自动登录
 ```
