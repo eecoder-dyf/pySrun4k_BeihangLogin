@@ -15,7 +15,10 @@ while True:
         retlogin = do_login(gatewayUrl, user, pwd)
         print("try login:")
         print(retlogin)
-    time.sleep(5)
+    else:
+        with open("aliyun.py", 'r') as f:
+            exec(f.read())
+    time.sleep(30)
 
     # os.system("python Login.py login {} {}".format(user, pwd))
     # time.sleep(t*3600)
