@@ -19,7 +19,7 @@ requests
 
 或交互式使用，避免暴露密码
 
-```python Login.py # 交互式用户名和密码输入```
+```python Login.py login # 交互式用户名和密码输入```
 
 ### 检查在线状态
 ```python Login.py check_online```
